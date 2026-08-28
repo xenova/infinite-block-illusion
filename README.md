@@ -1,6 +1,6 @@
 # Infinite Block Illusion
 
-An endless geometric illusion of rolling cubes and recursive motion. Built with Three.js and WebGPU. Try out the [demo](https://xenova-infinite-block-illusion.static.hf.space/).
+An endless geometric illusion of rolling cubes and recursive motion. Built with Three.js and WebGPU. Try the [demo](https://xenova-infinite-block-illusion.static.hf.space/).
 
 <img width="600" height="600" alt="blocks" src="https://github.com/user-attachments/assets/090c9861-9ab6-4aff-8c4c-99cd6df681f2" />
 
