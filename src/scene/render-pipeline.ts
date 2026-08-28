@@ -157,14 +157,19 @@ export async function createRenderPipeline(
   const aoDenoised = denoise(aoPass.getTextureNode(), sceneDepth, sceneNormal, camera);
   const aoBlend = uniform(0.76);
 
-  // Convert the authored screen-space AO radius into view-space units per pixel.
   const aoRadius = uniform(0.17);
   const aoFalloff = uniform(0.78);
+  // Convert the authored screen-space AO radius into view-space units per pixel,
+  // which is what GTAOPass's SCREEN_SPACE_RADIUS mode does to `radius`.
   const aoDepthScale = sceneViewZ.negate().mul(aoPixelWorldSize);
-  // GTAONode types these as plain uniforms, but accepts any float node.
+  // GTAONode types this as a plain uniform, but accepts any float node.
   const asAoScalar = (node: Node<"float">) => node as unknown as typeof aoPass.radius;
   aoPass.radius = asAoScalar(aoRadius.mul(aoDepthScale));
-  aoPass.distanceFallOff = asAoScalar(aoFalloff.mul(aoDepthScale));
+  // `distanceFallOff` weights each ray-march step as mix(1, 2/(j+2), fallOff), so it
+  // is a unitless blend factor and must stay in 0..1 — the depth scale belongs only
+  // on `radius`. Scaling it pushed it far above 1 on the distant recursion levels,
+  // where the extrapolated weight goes negative and clamps whole march steps away.
+  aoPass.distanceFallOff = aoFalloff;
 
   const bloomPass = bloom(sceneColor, 0.1, 0.14, 1.85);
 
