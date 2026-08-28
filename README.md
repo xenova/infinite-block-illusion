@@ -26,6 +26,12 @@ npm run preview  # serve dist/
 `leather`, `dune`, `moss`, `amber`, `marble`, `playa`, `copper`, `nacre`,
 `rockwall`, `rustedsteel`, `walnut`, `metalplate`.
 
+
+
+https://github.com/user-attachments/assets/76262000-d513-45ad-ae7a-05d25f80a48b
+
+
+
 Texture sources are authored PBR maps or shared textures with generated detail
 maps. Assets load eagerly, then each scene's shader pipeline is warmed before
 the startup curtain clears. The scene tuning panel exposes 82 schema-driven controls:
